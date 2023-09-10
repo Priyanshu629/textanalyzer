@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+
+    <!-- css starts -->
+    <style>
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color:aliceblue;
+}
+.header{
+    width: 100%;
+    height: 10vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    flex-wrap: wrap;
+    
+}
+.header a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    border: 2px solid grey;
+    background-color: green;
+}
+.header h1{
+    color: greenyellow;
+}
+.main{
+    width: 50%;
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5%;
+    margin: auto;
+}
+h3{
+    font-size: 1.5rem;
+}
+.para{
+    font-size: 1.5rem;
+}
+.op{
+    margin: .5rem;
+    
+}
+.op button{
+    margin: .5rem;
+    padding: .5rem;
+
+}
+
+    </style>
+</head>
+
+
+<body>
+    <header class="header">
+        <h1>Text Analyzer</h1>
+
+       
+        <button onclick="toggle()" id="mode">Dark Mode</button>
+    </header>
+    <div class="main">
+        <h2>Enter Text here</h2>
+        <textarea  id="input" cols="30" rows="15"></textarea>
+        <div class="op">
+            <button id="copy">Copy text</button><button id="clear">Clear</button>
+        </div>
+        <h3>Text summary is here</h3>
+        <p class="para">Number of Words: <span id="words"></span></p>
+        <p class="para">Number of Characters: <span id="char"></span></p>
+        <p class="para">Number of Vowel: <span id="vowels"></span></p>
+        <p class="para">Number of Consonant: <span id="conso"></span></p>
+    </div>
+
+    <!-- js atarts -->
+    <script>
+        document.getElementById('input').onkeyup=()=> {
+    let input = document.getElementById('input').value
+
+    let words = input.split(' ').length
+    //    console.log(words)
+    let char = input.length
+    let vowel = 0, conso = 0, spaces = 0;
+    for (var i = 0; i < input.length; i++) {
+        if (input.charAt(i) == 'a' || input.charAt(i) == 'e' || input.charAt(i) == 'i' || input.charAt(i) == 'o' || input.charAt(i) == 'u') {
+            vowel++
+        } else if (input.charAt(i) == ' ') {
+            spaces++
+        }
+        else {
+            conso++
+        }
+
+    }
+    document.getElementById('words').innerHTML = words
+    document.getElementById('char').innerHTML = char
+    document.getElementById('vowels').innerHTML = vowel
+    document.getElementById('conso').innerHTML = conso
+
+}
+
+document.getElementById('copy').onclick = () => {
+    let input = document.getElementById('input').value
+
+    if(input!=''){
+        navigator.clipboard.writeText(input)
+        alert('text copied to clipboard')
+    }
+   
+}
+document.getElementById('clear').onclick = () => {
+    document.getElementById('input').value = ''
+    document.getElementById('words').innerHTML = ''
+    document.getElementById('char').innerHTML = ''
+    document.getElementById('vowels').innerHTML = ''
+    document.getElementById('conso').innerHTML = ''
+}
+
+function toggle(){
+    if(document.body.style.backgroundColor=='aliceblue'){
+        document.body.style.backgroundColor='black'
+        document.body.style.color='white'
+        document.getElementById('mode').innerHTML='Light Mode'
+    }
+    else{
+        document.body.style.backgroundColor='aliceblue'
+        document.body.style.color='black'
+        document.getElementById('mode').innerHTML='Dark Mode'
+    }
+}
+    </script>
+</body>
+
+</html>
